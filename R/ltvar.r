@@ -13,7 +13,7 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
   nl <- p
 
   constant <- 0
-  if(Intercept==TRUE){constant = 1}
+  if(Intercept == TRUE){constant = 1}
 
   nb <- nk*(nk*nl+constant) # number of beta-coefficients
   na <- nk*(nk-1)/2         # number of parameters in a
@@ -54,9 +54,12 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
   vda <- array(0.0,dim=c(na,1))
 
   vidB <- seq(1:nb)-1
-  if(Intercept==TRUE){
+
+  if( Intercept == TRUE ){
+
     x1 <- seq(1:nk)-1
-    vidi <- x1*(nk*nl+1)
+    vidi <- x1 * ( nk * nl + 1 )
+
   }
 
   dnub <- dvb0 + ns - nl
