@@ -1,5 +1,5 @@
-fSampLTBv <- function(my,amX,mPhi,vmu,mSig,amG2inv,vd,mbo){
-  .Call(fSampLTBv,package="ltvar",my,amX,mPhi,vmu,mSig,amG2inv,vd,mbo)
+#fSampLTBv <- function(my,amX,mPhi,vmu,mSig,amG2inv,vd,mbo){
+#  .Call('fSampLTBv',package='ltvar',my,amX,mPhi,vmu,mSig,amG2inv,vd,mbo)
 #
 #  ns <- nrow(my)
 #  nk <- ncol(my)
@@ -141,4 +141,4 @@ fSampLTBv <- function(my,amX,mPhi,vmu,mSig,amG2inv,vd,mbo){
 #
 #  return(list(mba=mba))
 #
-}
+#}

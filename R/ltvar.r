@@ -80,9 +80,10 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
     # Sample beta
     xtmp <- fSampLTBv(my = ylagged, amX = mxLagged, mPhi = mPhib, vmu = vmub,
-                      mSig = mSigb, amG2inv = am0minv, vd = vdb, mbo = mb)
+                      mSig = mSigb, amG2inv = am0minv, vd = vdb, mbo = mb,
+                      stabletest = FALSE, Intercept = FALSE, nl = nl)
 
-    mb <- xtmp$mba
+    mb <- xtmp
     mbd  <- mb
 
     # Sample Phib, Sigmab, mub
@@ -125,8 +126,9 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
     }
 
-    xtmp <- fSampLTBv(myh,amXhi,mPhia,vmua,mSiga,amG2inv,vda,ma)
-    ma   <- xtmp$mba
+    xtmp <- fSampLTBv(myh,amXhi,mPhia,vmua,mSiga,amG2inv,vda,ma,
+                      stabletest = FALSE, Intercept = FALSE, nl = nl)
+    ma   <- xtmp
     mad  <- ma
 
     for(jj in 1:ns){

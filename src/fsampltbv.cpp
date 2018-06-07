@@ -8,10 +8,14 @@
 #include <iostream>
 #include <Rcpp.h>
 
+
 using namespace std;
 using namespace Rcpp;
 
-arma::mat fsampltbv(arma::mat my,arma::cube amX,arma::mat mPhi,arma::colvec vmu,arma::mat mSig,arma::cube amG2inv,arma::vec vd, arma::mat mbo,int stabletest,int Intercept,int nl){
+// [[Rcpp::depends("RcppArmadillo")]]
+// [[Rcpp::export]]
+
+arma::mat fSampLTBv(arma::mat my,arma::cube amX,arma::mat mPhi,arma::colvec vmu,arma::mat mSig,arma::cube amG2inv,arma::vec vd, arma::mat mbo,int stabletest,int Intercept,int nl){
 
   // Declaring variables
   int np = mPhi.n_cols;

@@ -1,2 +1,3 @@
+useDynLib(ltvar)
 export(ltvar)
 importFrom("stats", "dbeta", "embed", "rgamma", "rnorm", "runif")
