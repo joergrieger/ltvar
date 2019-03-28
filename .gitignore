@@ -5,3 +5,6 @@
 *.o
 *.dll
 src/fsampltbv.o
+src/fsampspm.o
+src/RcppExports.o
+src/ltvar.dll

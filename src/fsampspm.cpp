@@ -25,7 +25,7 @@ List fSampSPM(arma::mat mp, arma::mat mSig, arma::mat mPhi, arma::vec vmu,double
   // Sampling Sigma
   arma::vec sse=arma::zeros(np);
   for(int i=0;i<(ns-1);i++){
-    sse = sse + arma::trans(pow(mp(i+1,arma::span::all)-mp(i,arma::span::all)*mPhi - vmu.t()*(arma::eye(np,np)-mPhi),2));
+    sse = sse+arma::trans(pow(mp(i+1,arma::span::all)-mp(i,arma::span::all)*mPhi - vmu.t()*(arma::eye(np,np)-mPhi),2));
   }
 
   arma::vec vV = sse + arma::trans(pow(mp(1,arma::span::all)-vmu.t(),2)*(arma::eye(np,np)-pow(mPhi,2)));
@@ -101,20 +101,26 @@ List fSampSPM(arma::mat mp, arma::mat mSig, arma::mat mPhi, arma::vec vmu,double
   }
   for(int i=0;i<(np-1);i++){
     int docounter=0;
-    double dmun;
-    double dup=0;
+    double dmun = 0;
+    double dup = 0;
     while(docounter<100 && dup<vd(i)){
+
       dmun = abs(vmu(i))+sqrt(vsigi(i))*(arma::randn(1)).eval()(0,0);
       dup  = dmun+dk0*mSig0(i,i);
       docounter++;
+
     }
+
     if(docounter < 100){
+
       double dup2 = abs(vmu(i))+dk0*mSig0(i,i);
       double dfrac = dup2/dup;
       double dftest = (arma::randu(1)).eval()(0,0);
+
       if(dftest < dfrac){
-        vmun(i)=dmun;
+        vmun(i) = dmun;
       }
+
     }
   }
 

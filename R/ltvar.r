@@ -70,9 +70,11 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
   # Declare Variables for Storage
 
-  mbSave <- array(0, dim=c( nreps - burnin, ns, nb))
-  maSave <- array(0, dim=c( nreps - burnin, ns, na))
-  mhSave <- array(0, dim=c( nreps - burnin, ns, nk))
+  mbSave  <- array(0, dim=c( nreps - burnin, ns, nb))
+  maSave  <- array(0, dim=c( nreps - burnin, ns, na))
+  mhSave  <- array(0, dim=c( nreps - burnin, ns, nk))
+  vdbSave <- array(0, dim=c( nreps - burnin, nb, 1))
+  vdaSAve <- array(0, dim=c( nreps - burnin, na, 1))
 
   # Start sampling
   for(ii in 1:nreps){
@@ -195,10 +197,13 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
       maSave[ii-burnin,,] <- ma
       mhSave[ii-burnin,,] <- mh
 
+      vdbSave[ii - burnin,,] <- vdb
+      vdaSAve[ii - burnin,,] <- vda
+
     }
   }
 
-  retlist <- list(mb = mbSave, ma = maSave, mh = mhSave)
+  retlist <- list(mb = mbSave, ma = maSave, mh = mhSave,vdb=vdbSave,vda=vdaSAve)
   return(retlist)
 
 }
