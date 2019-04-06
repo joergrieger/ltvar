@@ -1,217 +1,229 @@
-fSVSamp <- function(vy,vh,dphi,dsig2,dh00,dsig02,nk){
+##
+##  vhs = fsvsamp(vy, vh,dphi, dsig2, dh00, dsig02, nK)
+##
+##  "svsamp" implements multi-move sampler for SV model
+##  by Shephard & Pitt (1997) and Omori & Watanabe (2004)
+##
+##  [model]
+##    y_t = exp(h_t/2)*eps_t,  eps_t ~ N(0, 1)
+##    h_{t+1} = \phi*h_t + ets_t,  eta_t ~ N(0, sig^2)
+##    h_0 = h00,  eta_0 ~ N(0, sig0^2)
+##
+##  [input]
+##      vy:     response (ns*1 vector)
+##      vh:     current point of h (ns*1 vector)
+##      dsig2, dsig02:
+##              parameter (scalar)
+##      nK:     # of blocks for multi-move sampler
+##
+##  [output]
+##      vhs:  sampled stochastic volatility (ns*1 vector)
+##
 
-  ns   <- length(vy)
-  nite <- 10
+fSVSamp <- function(vy, vh, dphi, dsig2, dh00, dsig02, nK=NULL){
 
-  vhs <- vh
 
-  repeat{
 
-    v1 <- t(floor(ns * ( seq(1:nk) + runif(nk) ) / (nk+2)))
-    vk <- as.vector(cbind(1, v1, ns + 1))
-    dvk <- diff(vk)
+  ##--- set variables ---##
+  #dphi = 1
 
-    if(!sum(dvk<2)){ break }
+  ns <- length(vy)
+  nite <- 5# # of iteration for h_hat
+  if(is.null(nK)){nK = 1/3*ns}
+
+  vhs <- vh# current point
+
+  vk <- c(1,2)
+
+  while (sum(diff(vk)<2) > 0){
+
+    vk <- c(1,floor(ns * (c(1:nK) + runif(nK)) / (nK+2)),ns+1)# stochastic knots
 
   }
 
-  for(jj in 1:(nk+1)){
+  ##--- sampling start ---##
 
-    ir  <- vk[jj]
-    id  <- vk[jj+1] - vk[jj]
-    ird <- vk[jj+1] - 1
+  for (i in 1 : (nK+1) ){
+    ir  <- vk[i]
+    id  <- vk[i+1] - vk[i]
+    ird <- vk[i+1] - 1
 
     vyi <- vy[ir:ird]
-    vho <- vh[ir:ird]
-    vhn <- array(0,dim=c(id,1))
+    vho <- vh[ir:ird]# current (old) point
+    vhn <- array(0,dim=c(id,1))# new point
 
-    if(jj < nk ){
+    if (i <= (nK)){
 
-      dhrd1 <- vh[ird+1]
+        dhrd1 <- vh[ird+1]# h(r+d+1)
 
     }
 
-    for(ii in 0:(nite+1)){
+    ##--- finding model & draw candidate ---#
 
-      if(ii==1){
+    for (j in 1 : nite+1){
 
-        vhh <-  vhn
+        if (j == 1){
 
-      }
-      else{
+          vhh <- vho# h_hat
 
-        vhh <- vho
+        }
+        else {
+          vhh <- vhn
+        }
 
-      }
+        vgder2 <- -0.5 * vyi^2 / exp(vhh)# g''(h)
+        vgder1 <- -0.5 - vgder2# g'(h)
+        vsiga2 <- -1 / vgder2# sig2_ast
+        vha <- vhh + vsiga2 * vgder1# h_ast
 
-      vgder2 <- -0.5 * vyi^2 / exp(vhh)
-      vgder1 <- -0.5 - vgder2
-      vsiga2 <- -1 / vgder2
-      vha <- vhh + vsiga2 * vgder1
+        if (i <= nK){
 
-      if( jj <= nk ){
-
-        vsiga2[id] <- 1 / ( -vgder2[id-1] + dphi^2 / dsig2 )
-        vha[id]    <- vsiga2[id] * ( vgder1[id] - vgder2[id] * vhh[id] + dphi*dhrd1/dsig2)
-
-      }
-
-
-
-      if( jj == 0){
-
-        da  <- dphi * vhs[ir-1]
-        dho <- dphi * vhs[ir-1]
-
-      }
-      else{
-
-        da  <- dh00
-        dh0 <- dh00
-
-      }
-
-      dH2 <- dsig2
-
-      if( jj == 0){
-
-        dH20 <- dsig2
-        dP   <- dH20
-
-      }
-      else{
-
-        dH20 <- dsig02
-        dP   <- dH20
-
-      }
-
-
-
-      ve    <- array(0,dim=c(id,1))
-      vDinv <- array(0,dim=c(id,1))
-      vK    <- array(0,dim=c(id,1))
-      vL    <- array(0,dim=c(id,1))
-      vu    <- array(0,dim=c(id,1))
-
-      for(tt in 1:id){
-
-        ve[tt]    <- vha[tt] - da
-        vDinv[tt] <- 1 / (dP + vsiga2[tt] )
-        vK[tt]    <- dphi * dP * vDinv[tt]
-        vL[tt]    <- dphi - vK[tt]
-
-        da <- dphi * da + vK[tt] * ve[tt]
-        dP <- dphi * dP + vL[tt] + dH2
-
-      }
-
-      if( ii < nite ){
-
-        dr <- 0
-        dU <- 0
-
-        for(tt in id:1){
-
-          dC <- dH2 * ( 1 - dU * dH2 )
-          deps <- 0
-          vu[tt] <- dH2 * dr + deps
-          dV <- dH2 * dU * vL[tt]
-
-          dCinv <- 1 / dC
-          dr <- vDinv[tt] * ve[tt] + vL[tt] * dr - dV * dCinv * deps
-          dU <- vDinv[tt] + vL[tt]^2 * dU + dV^2 * dCinv
+          vsiga2[id] <- 1 / (-vgder2[id] + 1/dsig2)
+          vha[id] <- vsiga2[id] * (vgder1[id] - vgder2[id]*vhh[id] + dphi * dhrd1/dsig2)
 
         }
 
-        dC  <- max(0, dH20 * ( 1 - dU * dH20 ))
-        du0 <- dH20 * dr + sqrt(dC) * rnorm(1,1)
-        vhn[1] <- dh0 + du0
+        ##--- simulation smoother ---##
 
-        for(tt in 2:id){
+        if (i == 1){
 
-          vhn[tt] <- dphi * vhn[tt-1] + vu[tt-1]
+          dh0 <- dh00
+          dH20 <- dsig02
+
+        } else {
+
+          dh0 <- dphi * vhs[ir-1]
+          dH20 <- dsig2
 
         }
 
-      }
-      else{
+        da <- dh0
+        dP <- dH20
+        dH2 <- dsig2
+        ve <- array(0,dim=c(id, 1))
+        vDinv <- array(0,dim=c(id, 1))
+        vK <- array(0,dim=c(id, 1))
+        vL <- array(0,dim=c(id, 1))
+        vu <- array(0,dim=c(id, 1))
 
-        docounter <- 1
-        repeat{
+        for (t in 1 : id){
+          ve[t] <- vha[t] - da# Kalman filter
+          vDinv[t] <- 1 / (dP + vsiga2[t])
+          vK[t] <- dphi * dP * vDinv[t]
+          vL[t] <- dphi - vK[t]
 
+          da <- dphi * da + vK[t] * ve[t]
+          dP <- dphi * dP * vL[t] + dH2
+        }
+
+        if (j <= nite){
+                    # finding mode
           dr <- 0
           dU <- 0
-          for(tt in id:1){
 
-            dC   <- max(0, dH2 * ( 1 - dU * dH2 ))
-            deps <- sqrt(dC) * rnorm(1)
-            vu[tt] <- dH2 * dr + deps
-            dV <- dH2 * dU * vL[tt]
+          t <- id# simulation smoother
+          while (t >= 1){
 
-            dCinv <- 1/dC
-            dr <- vDinv[tt] * ve[tt] + vL[tt] * dr - dV * dCinv * deps
-            dU <- vDinv[tt] + vL[tt]^2 * dU + dV^2 * dCinv
+            dC <- dH2 * (1 - dU * dH2)
+            deps <- 0
+            vu[t] <- dH2 * dr + deps
+            dV <- dH2 * dU * vL[t]
+
+            dCinv <- 1 / dC
+            dr <- vDinv[t] * ve[t] + vL[t] * dr - dV * dCinv * deps
+            dU <- vDinv[t] + vL[t]^2 * dU + dV^2 * dCinv
+            t <- t - 1
 
           }
 
-          dC  <- max(0,dH20 * ( 1 - dU * dH20 ))
-          du0 <- dH20 * dr + sqrt(dC) * rnorm(1)
-
+          du0 <- dH20 * dr
           vhn[1] <- dh0 + du0
-          for(tt in 1:(id-1)){
-            vhn[tt+1] <- dphi * vhn[tt] + vu[tt]
+
+          for (t in 1 : (id-1)){
+
+            vhn[t+1] <- dphi * vhn[t] + vu[t]
+
           }
 
-          dpron <- sum( -0.5 * ( vhh + vyi^2 / exp(vhh) ) + vgder1 * (vhn - vhh) + 0.5 * vgder2 * ( vhn - vhh )^2 )
-          dposn <- sum( - 0.5 * ( vhn + vyi^2 / exp(vhn) ))
-          docounter <- docounter + 1
+        } else {
+                    # draw candidate
+          fl <- 0
+          icyc <- 0
+          while ((fl  ==  0) && (icyc < 100)){
 
-          dfrac <- exp(dposn - dpron)
-          if(is.na(dfrac)){ dfrac <- 0}
+            dr <- 0
+            dU <- 0
 
-          if( docounter > 100 ){ break }
-          if( runif(1) < dfrac ){ break }
+            t <- id# simulation smoother
+            while (t >=  1){
+              dC <- dH2 * (1 - dU * dH2)
+              deps <- sqrt(dC) * rnorm(1)
+              vu[t] <- dH2 * dr + deps
+              dV <- dH2 * dU * vL[t]
+
+              dCinv <- 1 / dC
+              dr <- vDinv[t] * ve[t] + vL[t] * dr - dV * dCinv * deps
+              dU <- vDinv[t] + vL[t]^2 * dU + dV^2 * dCinv
+              t <- t - 1
+
+            }
+
+            dC <- dH20 * (1 - dU * dH20)
+            du0 <- dH20 * dr + sqrt(dC) * rnorm(1,0,1)
+            vhn[1] <- dh0 + du0
+
+
+            for (t in 1 : (id-1)){
+
+              vhn[t+1] <- dphi * vhn[t] + vu[t]
+
+            }
+
+          ##--- AR step ---##
+
+            dpron <- sum( -0.5 * (vhh + vyi^2 / exp(vhh)) # g(h_hat)
+                          + vgder1 * (vhn - vhh) # g'(h_hat)
+                          + 0.5 * vgder2 * (vhn - vhh)^2)# g''(h_hat)
+
+            dposn <- sum(-0.5 * (vhn + vyi^2 / exp(vhn)))
+
+            dfrac <- exp(dposn-dpron)
+            if(is.na(dfrac)){dfrac <- 0}
+
+
+            if (runif(1) < dfrac){
+                fl <- 1
+            }
+
+            icyc <- icyc + 1
+
+          }
+
         }
 
-        if( docounter < 100 ){
+    }
 
-          dproo <- sum(-0.5*( vhh + vyi^2 / exp(vhh) ) + vgder1 * ( vho - vhh ) + 0.5 * vgder2 * ( vho - vhh )^2)
-          dposo <- sum(-0.5 * ( vho + vyi^2 / exp(vho) ))
+    if (icyc < 100){
 
-          dfrac <- exp( dposn + min(dposo,dproo) - dposo - min(dposn,dpron) )
-          if(is.na(dfrac)){ dfrac <- 0 }
+      ##--- MH step ---##
 
-          if( runif(1) < dfrac ){
+        dproo <- sum( -0.5 * (vhh + vyi^2 / exp(vhh)) # g(h_hat)
+            + vgder1 * (vho - vhh) # g'(h_hat)
+            + 0.5 * vgder2 * (vho - vhh)^2)# g''(h_hat)
+
+        dposo <- sum(-0.5 * (vho + vyi^2 / exp(vho)))
+
+        dfrac <- exp(  dposn + min(c(dposo, dproo))
+                    - dposo - min(c(dposn, dpron) ))
+
+        if (runif(1) < dfrac){
 
             vhs[ir:ird] <- vhn
 
-          }
-
         }
-
-      }
-
     }
 
-  }
 
+  }
   return(vhs)
-
-}
-
-
-fAt <- function(va,nk){
-
-  mAt <- diag(1,nk)
-
-  for(ii in 2:nk){
-
-    ind1 <- (ii - 1) * (ii - 2)/2 + 1
-    ind2 <- ii * (ii-1) / 2
-
-    mAt[ii,1:(ii-1)] <- va[ind1:ind2]
-
-  }
-  return(mAt)
 }

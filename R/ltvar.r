@@ -1,7 +1,8 @@
 ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
                   # Priors
                   dvb0 = 20, dVb0 = 0.002, dva0 = 2, dVa0 = 0.002, dvh0 = 2, dVh0 = 0.002,
-                  dm0 = 0, ds0 = 1, da0 = 1, db0 = 1, dg0 = 4, dG0 = 0.01){
+                  dm0 = 0, ds0 = 1, da0 = 1, db0 = 1, dg0 = 4, dG0 = 0.1,
+                  nKnots = NULL){
   # Lag data
   xy       <- lagdata(y,p,intercept=Intercept)
   ylagged  <- xy$y
@@ -159,7 +160,7 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
     for(jj in 1:ns){
 
-      mya[jj,,] <- myh[jj,] %*% (fAt(mad[jj,],nk))
+      mya[jj,,] <- myh[jj,] %*% t(fAt(mad[jj,],nk))
 
     }
 
@@ -167,7 +168,7 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
     for( jj in 1:nk){
 
-      xtmp <- fSVSamp(mya[,jj,jj]/sqrt(vgam[jj]),mh[,jj],mPhih[jj,jj],mSigh[jj,jj],0,mSh0[jj,jj],nk)
+      xtmp <- fSVSamp(mya[,jj,jj]/sqrt(vgam[jj]),mh[,jj],mPhih[jj,jj],mSigh[jj,jj],0,mSh0[jj,jj],nKnots)
       mh[,jj] <- xtmp
 
     }
