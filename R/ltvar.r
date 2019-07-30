@@ -1,3 +1,8 @@
+#' @export
+#' @title mcmc computation of latent-threshold models
+#' @param y A TxK matrix with the data
+#' @param Intercept Logical flag whether the model contains an intercept
+
 ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
                   # Priors
                   dvb0 = 20, dVb0 = 0.002, dva0 = 2, dVa0 = 0.002, dvh0 = 2, dVh0 = 0.002,

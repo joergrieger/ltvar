@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/joergrieger/ltvar.svg?branch=master)](https://travis-ci.com/joergrieger/ltvar) [![codecov](https://codecov.io/gh/joergrieger/ltvar/branch/master/graph/badge.svg)](https://codecov.io/gh/joergrieger/ltvar) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ltvar)]() [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+
 # Overview
 
 The LTVAR package estimates the Latent Threshold Vector Autoregressive Model of Nakajima and West (2013)
