@@ -12,6 +12,12 @@
 using namespace std;
 using namespace Rcpp;
 
+//' @export
+//' @title samples
+//' @param my LHS of data
+//' @param mx RHS of data
+//' @param mPhi transition matrix for VAR-Parameters
+
 // [[Rcpp::depends("RcppArmadillo")]]
 // [[Rcpp::export]]
 

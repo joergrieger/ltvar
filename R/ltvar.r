@@ -1,7 +1,11 @@
 #' @export
 #' @title mcmc computation of latent-threshold models
 #' @param y A TxK matrix with the data
+#' @param p number of lags
 #' @param Intercept Logical flag whether the model contains an intercept
+#' @param nreps number of total mcmc draws
+#' @param burnin number of burn-in draws
+#' @param nKnots number of knots in the stochastic volatility sampler
 
 ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
                   # Priors
@@ -209,7 +213,7 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
     }
   }
 
-  retlist <- list(mb = mbSave, ma = maSave, mh = mhSave,vdb=vdbSave,vda=vdaSAve)
+  retlist <- structure(list(mb = mbSave, ma = maSave, mh = mhSave,vdb=vdbSave,vda=vdaSAve),class="ltvar")
   return(retlist)
 
 }

@@ -11,3 +11,5 @@ Encoding: UTF-8
 LazyData: true
 Imports: Rcpp (>= 0.12.16)
 LinkingTo: Rcpp, RcppArmadillo
+URL: https://github.com/joergrieger/ltvar
+RoxygenNote: 6.1.1
