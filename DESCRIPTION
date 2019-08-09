@@ -4,7 +4,8 @@ Title: Estimates Latent Threshold VAR Model
 Version: 0.1.0
 Authors@R: person("Joerg","Rieger",email="joerg.rieger.jr@gmail.com",role=c("aut","cre"))
 Depends:
-    R (>= 3.3.0)
+    R (>= 3.3.0),
+    MASS
 Description: Estimates Latent Threshold VAR Model using MCMC methods.
 License: GPL
 Encoding: UTF-8

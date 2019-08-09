@@ -117,7 +117,7 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
     # Sample threshold for b
 
-    vdbc <- abs(vmub) + ( dk0 * sqrt( diag( mSigb %*% ginv( diag(1,nb) - mPhib^2 ))))
+    vdbc <- abs(vmub) + ( dk0 * sqrt( diag( mSigb %*% MASS::ginv( diag(1,nb) - mPhib^2 ))))
 
     xtmp <- fSampLT( my = ylagged, amX = mxLagged, mp = mb,am0minv, vd = vdb, vdc = vdbc)
     vdb  <- xtmp
@@ -166,7 +166,7 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
     # Sampling threshold of a
 
-    vdac <- abs(vmua) + dk0 * sqrt( diag( mSiga %*% ginv( diag(1,na) - mPhia )))
+    vdac <- abs(vmua) + dk0 * sqrt( diag( mSiga %*% MASS::ginv( diag(1,na) - mPhia )))
 
     xtmp <- fSampLT(myh,amXhi,ma,amG2inv,vda,vdac)
     vda  <- xtmp
@@ -180,7 +180,7 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
     }
 
-    mSh0 <- mSigh %*% ginv(diag(1,nk)-mPhih^2)
+    mSh0 <- mSigh %*% MASS::ginv(diag(1,nk)-mPhih^2)
 
     for( jj in 1:nk){
 

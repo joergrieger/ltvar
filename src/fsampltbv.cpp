@@ -14,7 +14,7 @@ using namespace Rcpp;
 
 //' @export
 //' @title samples the parameter
-//' This function samples the VAR-parameter of a latent-threshold VAR using a single move algorithm.
+//' This function samples the VARS-parameter of a latent-threshold VAR using a single move algorithm.
 //' @param my LHS of data
 //' @param amX RHS of data
 //' @param mPhi transition matrix for VAR-Parameters
@@ -26,6 +26,7 @@ using namespace Rcpp;
 //' @param stabletest Test if candidate draw is stable (currently not implemented)
 //' @param Intercept whether the model contains an intercept or not.
 //' @param nl number of lags
+
 // [[Rcpp::depends("RcppArmadillo")]]
 // [[Rcpp::export]]
 
