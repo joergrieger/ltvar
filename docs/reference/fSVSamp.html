@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • ltvar</title>
+<title>implements multi-move sampler for SV model — fSVSamp • ltvar</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="implements multi-move sampler for SV model — fSVSamp" />
+
+<meta property="og:description" content="implements multi-move sampler for SV model" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -47,7 +50,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -94,69 +97,58 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>implements multi-move sampler for SV model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/joergrieger/ltvar/blob/master/R/fsampsv.r'><code>R/fsampsv.r</code></a></small>
+    <div class="hidden name"><code>fSVSamp.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>implements multi-move sampler for SV model</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-main-functions" class="hasAnchor"><a href="#section-main-functions" class="anchor"></a>Main functions</h2>
-          <p class="section-desc"><p>Main functions of the LTVAR-package</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="ltvar.html">ltvar()</a></code> </p>
-        </td>
-        <td><p>mcmc computation of latent-threshold models</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-sampler" class="hasAnchor"><a href="#section-sampler" class="anchor"></a>Sampler</h2>
-          <p class="section-desc"><p>Functions to sample parameters</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="fSampSPG.html">fSampSPG()</a></code> </p>
-        </td>
-        <td><p>samples sigma, phi and gamma for stochastic volatility sampler</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fSVSamp.html">fSVSamp()</a></code> </p>
-        </td>
-        <td><p>implements multi-move sampler for SV model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fSampLT.html">fSampLT()</a></code> </p>
-        </td>
-        <td><p>sample the latent thresholds</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>fSVSamp</span>(<span class='no'>vy</span>, <span class='no'>vh</span>, <span class='no'>dphi</span>, <span class='no'>dsig2</span>, <span class='no'>dh00</span>, <span class='no'>dsig02</span>, <span class='kw'>nK</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>vy</th>
+      <td><p>response (ns*1 vector)</p></td>
+    </tr>
+    <tr>
+      <th>vh</th>
+      <td><p>current point of h (ns*1 vector)</p></td>
+    </tr>
+    <tr>
+      <th>dphi</th>
+      <td><p>AR(1) coefficient for transition of volatility</p></td>
+    </tr>
+    <tr>
+      <th>dsig2, dsig02</th>
+      <td><p>parameters (scalar)</p></td>
+    </tr>
+    <tr>
+      <th>dh00</th>
+      <td><p>mean of cofficients</p></td>
+    </tr>
+    <tr>
+      <th>nK</th>
+      <td><p>number of blocks for multi-move sampler</p></td>
+    </tr>
     </table>
-  </div>
+    
 
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-main-functions">Main functions</a></li>
-      <li><a href="#section-sampler">Sampler</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
+
   </div>
 </div>
 

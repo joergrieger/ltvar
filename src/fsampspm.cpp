@@ -11,6 +11,20 @@
 
 using namespace std;
 using namespace Rcpp;
+//' @export
+//' @title samples the parameters for the transition of VAR-parameters
+//' @param mp VAR-parameters
+//' @param mSig standard deviation of the paramters
+//' @param mPhi matrix with the transition parameters
+//' @param vmu vector with intercepts
+//' @param vd vector with the thresholds
+//' @param dk0 latent threshold prior
+//' @param dnu prior on the volatility of parameters, scale of inverse gamma distribution
+//' @param dV0 prior on the volatility of parameters, shape of inverse gamma distribution
+//' @param da0 prior on Phi, shape of beta distribution (alpha)
+//' @param db0 prior on Phi, shpae of beta distribution (beta)
+//' @param dm0 Prior on Intercept, mean of normal distribution
+//' @param ds0 Prior on Intercept, variance of normal distribution
 
 // [[Rcpp::depends("RcppArmadillo")]]
 // [[Rcpp::export]]

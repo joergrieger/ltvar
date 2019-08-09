@@ -11,9 +11,13 @@ fSampLT(my, amX, mp, amG2inv, vd, vdc)
 
 \item{amX}{matrix with rhs of data}
 
+\item{mp}{ar-coefficient}
+
 \item{amG2inv}{volatility}
 
-\item{vd}{current treshold}
+\item{vd}{vector with current treshold}
+
+\item{vdc}{vector with candidate thresholds}
 }
 \description{
 sample the latent thresholds

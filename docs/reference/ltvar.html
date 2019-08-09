@@ -113,7 +113,7 @@
     <pre class="usage"><span class='fu'>ltvar</span>(<span class='no'>y</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>Intercept</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>nreps</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>burnin</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>dvb0</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>dVb0</span> <span class='kw'>=</span> <span class='fl'>0.002</span>, <span class='kw'>dva0</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>dVa0</span> <span class='kw'>=</span> <span class='fl'>0.002</span>, <span class='kw'>dvh0</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>dVh0</span> <span class='kw'>=</span> <span class='fl'>0.002</span>, <span class='kw'>dm0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ds0</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>da0</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>db0</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>dg0</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>dG0</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>nKnots</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>dG0</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>dk0</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nKnots</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,8 +139,40 @@
       <td><p>number of burn-in draws</p></td>
     </tr>
     <tr>
+      <th>dvb0, dVb0</th>
+      <td><p>prior on volatility of betas</p></td>
+    </tr>
+    <tr>
+      <th>dva0, dVa0</th>
+      <td><p>prior on volatiltiy of covariances</p></td>
+    </tr>
+    <tr>
+      <th>dvh0, dVh0</th>
+      <td><p>prior on volatility of variances</p></td>
+    </tr>
+    <tr>
+      <th>dm0, ds0</th>
+      <td><p>prior on intercept</p></td>
+    </tr>
+    <tr>
+      <th>da0</th>
+      <td><p>prior on phi for covariances</p></td>
+    </tr>
+    <tr>
+      <th>db0</th>
+      <td><p>prior on phi for betas</p></td>
+    </tr>
+    <tr>
+      <th>dg0, dG0</th>
+      <td><p>prior on parameters for stochastic volatility</p></td>
+    </tr>
+    <tr>
+      <th>dk0</th>
+      <td><p>latent threshold prior</p></td>
+    </tr>
+    <tr>
       <th>nKnots</th>
-      <td><p>number of knots in the stochastic volatility sampler</p></td>
+      <td><p>number of blocks in the stochastic volatility sampler</p></td>
     </tr>
     </table>
     

@@ -7,7 +7,7 @@
 ltvar(y, p = 2, Intercept = TRUE, nreps = 100, burnin = 10,
   dvb0 = 20, dVb0 = 0.002, dva0 = 2, dVa0 = 0.002, dvh0 = 2,
   dVh0 = 0.002, dm0 = 0, ds0 = 1, da0 = 1, db0 = 1, dg0 = 4,
-  dG0 = 0.1, nKnots = NULL)
+  dG0 = 0.1, dk0 = 3, nKnots = NULL)
 }
 \arguments{
 \item{y}{A TxK matrix with the data}
@@ -20,7 +20,23 @@ ltvar(y, p = 2, Intercept = TRUE, nreps = 100, burnin = 10,
 
 \item{burnin}{number of burn-in draws}
 
-\item{nKnots}{number of knots in the stochastic volatility sampler}
+\item{dvb0, dVb0}{prior on volatility of betas}
+
+\item{dva0, dVa0}{prior on volatiltiy of covariances}
+
+\item{dvh0, dVh0}{prior on volatility of variances}
+
+\item{dm0, ds0}{prior on intercept}
+
+\item{da0}{prior on phi for covariances}
+
+\item{db0}{prior on phi for betas}
+
+\item{dg0, dG0}{prior on parameters for stochastic volatility}
+
+\item{dk0}{latent threshold prior}
+
+\item{nKnots}{number of blocks in the stochastic volatility sampler}
 }
 \description{
 mcmc computation of latent-threshold models

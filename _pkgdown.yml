@@ -17,4 +17,8 @@ reference:
 - title: Sampler
   desc: Functions to sample parameters
   contents:
+    - fSampSPG
+    - fSVSamp
+    - fSampLT
+
 

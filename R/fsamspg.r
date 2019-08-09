@@ -1,3 +1,14 @@
+#' @export
+#' @title samples sigma, phi and gamma for stochastic volatility sampler
+#' @param my current draw of stochastic volatility
+#' @param mh previous draw of stochastic volatility
+#' @param mPhi Phi-matrix from previous draw
+#' @param vgam gamma draw from previous round
+#' @param dnu
+#' @param dg0,dG0 prior parameters on gamma, inverse gamma distribution
+#' @param da0,db0 prior parameters on phi, shape parameters for beta distribution
+#' @param dnu,dV0 prior parameters on sigma, inverse gamma distribution
+
 fSampSPG <- function(my,mh,mPhi,vgam,dnu,dV0,da0,db0,dg0,dG0){
 
   # Preliminaries

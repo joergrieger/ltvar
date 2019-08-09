@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • ltvar</title>
+<title>samples sigma, phi and gamma for stochastic volatility sampler — fSampSPG • ltvar</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="samples sigma, phi and gamma for stochastic volatility sampler — fSampSPG" />
+
+<meta property="og:description" content="samples sigma, phi and gamma for stochastic volatility sampler" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -47,7 +50,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -94,69 +97,62 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>samples sigma, phi and gamma for stochastic volatility sampler</h1>
+    <small class="dont-index">Source: <a href='https://github.com/joergrieger/ltvar/blob/master/R/fsamspg.r'><code>R/fsamspg.r</code></a></small>
+    <div class="hidden name"><code>fSampSPG.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>samples sigma, phi and gamma for stochastic volatility sampler</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-main-functions" class="hasAnchor"><a href="#section-main-functions" class="anchor"></a>Main functions</h2>
-          <p class="section-desc"><p>Main functions of the LTVAR-package</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="ltvar.html">ltvar()</a></code> </p>
-        </td>
-        <td><p>mcmc computation of latent-threshold models</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-sampler" class="hasAnchor"><a href="#section-sampler" class="anchor"></a>Sampler</h2>
-          <p class="section-desc"><p>Functions to sample parameters</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="fSampSPG.html">fSampSPG()</a></code> </p>
-        </td>
-        <td><p>samples sigma, phi and gamma for stochastic volatility sampler</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fSVSamp.html">fSVSamp()</a></code> </p>
-        </td>
-        <td><p>implements multi-move sampler for SV model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fSampLT.html">fSampLT()</a></code> </p>
-        </td>
-        <td><p>sample the latent thresholds</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>fSampSPG</span>(<span class='no'>my</span>, <span class='no'>mh</span>, <span class='no'>mPhi</span>, <span class='no'>vgam</span>, <span class='no'>dnu</span>, <span class='no'>dV0</span>, <span class='no'>da0</span>, <span class='no'>db0</span>, <span class='no'>dg0</span>, <span class='no'>dG0</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>my</th>
+      <td><p>current draw of stochastic volatility</p></td>
+    </tr>
+    <tr>
+      <th>mh</th>
+      <td><p>previous draw of stochastic volatility</p></td>
+    </tr>
+    <tr>
+      <th>mPhi</th>
+      <td><p>Phi-matrix from previous draw</p></td>
+    </tr>
+    <tr>
+      <th>vgam</th>
+      <td><p>gamma draw from previous round</p></td>
+    </tr>
+    <tr>
+      <th>dnu, dV0</th>
+      <td><p>prior parameters on sigma, inverse gamma distribution</p></td>
+    </tr>
+    <tr>
+      <th>da0, db0</th>
+      <td><p>prior parameters on phi, shape parameters for beta distribution</p></td>
+    </tr>
+    <tr>
+      <th>dg0, dG0</th>
+      <td><p>prior parameters on gamma, inverse gamma distribution</p></td>
+    </tr>
     </table>
-  </div>
+    
 
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-main-functions">Main functions</a></li>
-      <li><a href="#section-sampler">Sampler</a></li>
-    </ul>
+      <li><a href="#arguments">Arguments</a></li>
+                </ul>
+
   </div>
 </div>
 

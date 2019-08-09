@@ -3,8 +3,9 @@
 #' @param my matrix with the data (lhs)
 #' @param amX matrix with rhs of data
 #' @param amG2inv volatility
-#' @param vd current treshold
-#'
+#' @param vd  vector with current treshold
+#' @param vdc vector with candidate thresholds
+#' @param mp ar-coefficient
 
 fSampLT <- function(my,amX,mp,amG2inv,vd,vdc){
   ns <- nrow(mp)

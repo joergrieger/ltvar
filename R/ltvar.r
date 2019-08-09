@@ -5,12 +5,20 @@
 #' @param Intercept Logical flag whether the model contains an intercept
 #' @param nreps number of total mcmc draws
 #' @param burnin number of burn-in draws
-#' @param nKnots number of knots in the stochastic volatility sampler
+#' @param nKnots number of blocks in the stochastic volatility sampler
+#' @param dvb0,dVb0 prior on volatility of betas
+#' @param dva0,dVa0 prior on volatiltiy of covariances
+#' @param dvh0,dVh0 prior on volatility of variances
+#' @param dm0,ds0 prior on intercept
+#' @param da0 prior on phi for covariances
+#' @param db0 prior on phi for betas
+#' @param dg0,dG0 prior on parameters for stochastic volatility
+#' @param dk0 latent threshold prior
 
 ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
                   # Priors
                   dvb0 = 20, dVb0 = 0.002, dva0 = 2, dVa0 = 0.002, dvh0 = 2, dVh0 = 0.002,
-                  dm0 = 0, ds0 = 1, da0 = 1, db0 = 1, dg0 = 4, dG0 = 0.1,
+                  dm0 = 0, ds0 = 1, da0 = 1, db0 = 1, dg0 = 4, dG0 = 0.1, dk0 = 3,
                   nKnots = NULL){
   # Lag data
   xy       <- lagdata(y,p,intercept=Intercept)
@@ -76,7 +84,6 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
   dnua <- dva0 + ns - nl
   dnuh <- dvh0 + ns - nl
 
-  dk0 <- 2
 
   # Declare Variables for Storage
 

@@ -20,6 +20,15 @@
 ##      vhs:  sampled stochastic volatility (ns*1 vector)
 ##
 
+#' @export
+#' @title implements multi-move sampler for SV model
+#' @param vy response (ns*1 vector)
+#' @param vh current point of h (ns*1 vector)
+#' @param nK number of blocks for multi-move sampler
+#' @param dphi AR(1) coefficient for transition of volatility
+#' @param dsig2,dsig02 parameters (scalar)
+#' @param dh00 mean of cofficients
+
 fSVSamp <- function(vy, vh, dphi, dsig2, dh00, dsig02, nK=NULL){
 
 
