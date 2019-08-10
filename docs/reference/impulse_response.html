@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>samples the parameter
-This function samples the VARS-parameter of a latent-threshold VAR using a single move algorithm. — fSampLTBv • ltvar</title>
+<title>impulse-responses for latent threshold VARs — impulse_response • ltvar</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -31,11 +30,9 @@ This function samples the VARS-parameter of a latent-threshold VAR using a singl
 
 
 
-<meta property="og:title" content="samples the parameter
-This function samples the VARS-parameter of a latent-threshold VAR using a single move algorithm. — fSampLTBv" />
+<meta property="og:title" content="impulse-responses for latent threshold VARs — impulse_response" />
 
-<meta property="og:description" content="samples the parameter
-This function samples the VARS-parameter of a latent-threshold VAR using a single move algorithm." />
+<meta property="og:description" content="impulse-responses for latent threshold VARs" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -102,68 +99,29 @@ This function samples the VARS-parameter of a latent-threshold VAR using a singl
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>samples the parameter
-This function samples the VARS-parameter of a latent-threshold VAR using a single move algorithm.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/joergrieger/ltvar/blob/master/R/RcppExports.R'><code>R/RcppExports.R</code></a></small>
-    <div class="hidden name"><code>fSampLTBv.Rd</code></div>
+    <h1>impulse-responses for latent threshold VARs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/joergrieger/ltvar/blob/master/R/irf.r'><code>R/irf.r</code></a></small>
+    <div class="hidden name"><code>impulse_response.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>samples the parameter
-This function samples the VARS-parameter of a latent-threshold VAR using a single move algorithm.</p>
+    <p>impulse-responses for latent threshold VARs</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>fSampLTBv</span>(<span class='no'>my</span>, <span class='no'>amX</span>, <span class='no'>mPhi</span>, <span class='no'>vmu</span>, <span class='no'>mSig</span>, <span class='no'>amG2inv</span>, <span class='no'>vd</span>, <span class='no'>mbo</span>, <span class='no'>stabletest</span>,
-  <span class='no'>Intercept</span>, <span class='no'>nl</span>)</pre>
+    <pre class="usage"><span class='fu'>impulse_response</span>(<span class='no'>obj</span>, <span class='no'>n.ahead</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>my</th>
-      <td><p>LHS of data</p></td>
+      <th>obj</th>
+      <td><p>A fitted ltvar model</p></td>
     </tr>
     <tr>
-      <th>amX</th>
-      <td><p>RHS of data</p></td>
-    </tr>
-    <tr>
-      <th>mPhi</th>
-      <td><p>transition matrix for VAR-Parameters</p></td>
-    </tr>
-    <tr>
-      <th>vmu</th>
-      <td><p>mean of transition matrix</p></td>
-    </tr>
-    <tr>
-      <th>mSig</th>
-      <td><p>variance-covariance matrix for standard deviation of parameters</p></td>
-    </tr>
-    <tr>
-      <th>amG2inv</th>
-      <td><p>a KxKxT array with the stochastic volatility</p></td>
-    </tr>
-    <tr>
-      <th>vd</th>
-      <td><p>latent threshold</p></td>
-    </tr>
-    <tr>
-      <th>mbo</th>
-      <td><p>old betas</p></td>
-    </tr>
-    <tr>
-      <th>stabletest</th>
-      <td><p>Test if candidate draw is stable (currently not implemented)</p></td>
-    </tr>
-    <tr>
-      <th>Intercept</th>
-      <td><p>whether the model contains an intercept or not.</p></td>
-    </tr>
-    <tr>
-      <th>nl</th>
-      <td><p>number of lags</p></td>
+      <th>n.ahead</th>
+      <td><p>Integer specifying the steps</p></td>
     </tr>
     </table>
     
