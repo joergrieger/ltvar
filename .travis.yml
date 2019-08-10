@@ -1,6 +1,7 @@
 language: r
-sudo: false
+sudo: required
 cache: packages
+
 r_packages:
   - covr
 
