@@ -25,32 +25,33 @@ lagdata <-function(y,lags,intercept=FALSE){
 
 }
 
+fAt <- function(va,nk){
 
-# function to test if a provided variable is a scalar
-#.isscalar <- function(x) is.atomic(x) && length(x) == 1L && !is.character(x) && Im(x)==0
+  mAt <- diag(1,nk)
 
-#vec2matrix <- function(lags,K,vec){
-#  matrix0 <- array(0,dim=c(lags,K))
-#  for(ii in 1:lags){
-#    for(jj in 1:K){
-#      matrix0[ii,jj] <- vec[(ii-1)*K+jj]
-#    }
-#  }
-#  return(matrix0)
-#}
+  for(ii in 2:nk){
 
-#invpd <- function(x){
-#  as.matrix(x)
-#  xncol <- ncol(x)
-#  temp <- diag(1,xncol)
-#  ipd <- mldivide(x,temp,pinv=TRUE)
-#}
+    ind1 <- (ii - 1) * (ii - 2)/2 + 1
+    ind2 <- ii * (ii-1) / 2
 
-#demean <- function(x){
-#  x.nc <- ncol(x)
-#  for(i in 1:x.nc){
-#    x.mean <- mean(x[,i])
-#    x[,i]<-x[,i]-x.mean
-#  }
-#  return(x)
-#}
+    mAt[ii,1:(ii-1)] <- va[ind1:ind2]
+
+  }
+  return(mAt)
+}
+
+fk0 <- function(dmu,dsig2,dphi,dk0){
+
+  return( abs(dmu) + dk0 * sqrt( dsig2 / (1-dphi^2) ))
+
+}
+
+fxh <- function(vyh,nk,na){
+  mxh <- array(0,dim=c(nk,na))
+  for(ii in 1:(nk-1)){
+    ind1 <- ii*(ii-1)/2+1
+    ind2 <- (ii+1)*ii/2
+    mxh[ii+1,ind1:ind2] <- -vyh[1:ii]
+  }
+  return(mxh)
+}
