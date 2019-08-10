@@ -69,7 +69,7 @@ fSVSamp <- function(vy, vh, dphi, dsig2, dh00, dsig02, nK=NULL){
 
     ##--- finding model & draw candidate ---#
 
-    for (j in 1 : nite+1){
+    for (j in 1 : (nite + 1)){
 
         if (j == 1){
 
