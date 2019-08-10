@@ -63,7 +63,7 @@ arma::mat fSampLTBv(arma::mat my,arma::cube amX,arma::mat mPhi,arma::colvec vmu,
       vbh = mSigh*(amxtmp*amgtmp*ytmp.t()+mSig0i*vmu+mSigi*mPhi*(arma::trans(mbtmp)-vpm1));
 
     }
-    else if(i < (ns-1)){
+    else if(i < (ns-2)){
 
       mSighi = amxtmp*amgtmp*amxtmp.t()+mSigp;
       mSigh  = pinv(mSighi);
@@ -101,7 +101,7 @@ arma::mat fSampLTBv(arma::mat my,arma::cube amX,arma::mat mPhi,arma::colvec vmu,
       mSigh  = pinv(mSighi);
       vbh = mSigh*(mxh*amgtmp*ytmp.t()+mSig0i*vmu+mSigi*mPhi*(arma::trans(mbtmp)-vpm1));
     }
-    else if(i<(ns-1)){
+    else if(i<(ns-2)){
       mSighi = mxh*amgtmp*mxh.t()+mSigp;
       mSigh  = pinv(mSighi);
       vbh    = mSigh*(mxh*amgtmp*ytmp.t()+mSigi*(mPhi*(vba1+arma::trans(mbtmp))+vpm2));
@@ -129,7 +129,7 @@ arma::mat fSampLTBv(arma::mat my,arma::cube amX,arma::mat mPhi,arma::colvec vmu,
       mSigh  = pinv(mSighi);
       vbh = mSigh*(mxh*amgtmp*ytmp.t()+mSig0i*vmu+mSigi*mPhi*(arma::trans(mbtmp)-vpm1));
     }
-    else if(i<(ns-1)){
+    else if(i<(ns-2)){
       mSighi = mxh*amgtmp*mxh.t()+mSigp;
       mSigh  = pinv(mSighi);
       vbh    = mSigh*(mxh*amgtmp*ytmp.t()+mSigi*(mPhi*(vba1+arma::trans(mbtmp))+vpm2));
