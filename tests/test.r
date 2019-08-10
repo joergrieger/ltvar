@@ -4,8 +4,11 @@ data(jpdata)
 
 # Test fitting a latent threshold model
 
-ltfit <- ltvar(y=jpdata,p=3)
+ltfit1 <- ltvar(y=jpdata,p=1)
+ltfit2 <- ltvar(y=jpdata,p=2)
 
 # Test computing impulse-responses
 
-ltirf <- impulse_response(ltfit,n.ahead = 24)
+ltirf1 <- impulse_response(ltfit1,n.ahead = 12)
+ltirf2 <- impulse_response(ltfit2,n.ahead = 12)
+
