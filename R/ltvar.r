@@ -219,8 +219,11 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
     }
   }
+  draws = list(mb = mbSave, ma = maSave, mh = mhSave,vdb=vdbSave,vda=vdaSAve)
 
-  retlist <- structure(list(mb = mbSave, ma = maSave, mh = mhSave,vdb=vdbSave,vda=vdaSAve),class="ltvar")
+  model_info = list(p=p,intercept=Intercept)
+  retlist <- structure(list(mcmc_draws=draws,
+                            model_info=model_info),class="ltvar")
   return(retlist)
 
 }
