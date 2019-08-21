@@ -11,6 +11,3 @@ export(impulse_response)
 export(ltvar)
 importFrom(Rcpp,sourceCpp)
 useDynLib(ltvar, .registration = TRUE)
-
-importFrom("stats", "dbeta", "embed", "quantile", "rgamma", "rnorm",
-               "runif")
