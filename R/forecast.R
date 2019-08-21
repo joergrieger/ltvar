@@ -73,14 +73,14 @@ forecast.ltvar <- function(obj,n.ahead,...){
 
       if(intercept){
 
-        tmp <-c(1,myf)
+        tmp <-c(1,matrix(t(myf),nrow = 1))
       }
       else{
 
-        tmp <- myf
+        tmp <- matrix(t(myf),nrow = 1)
 
       }
-      tmp <- matrix(tmp,nrow = 1)
+
       vyf <- t(tmp %*% vb) + t(chol(mOmsq)) %*% rnorm(nk)
 
       # Geet new variables
