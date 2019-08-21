@@ -70,6 +70,7 @@ forecast.ltvar <- function(obj,n.ahead,...){
       mOmsq <- solve(fAt(vafd,nk)) %*% diag(exp(as.vector(vhf)/2)) * sqrt(vgam)
 
       vb <- matrix(vbfd,ncol = nk)
+
       if(intercept){
 
         tmp <-c(1,myf)
@@ -79,6 +80,7 @@ forecast.ltvar <- function(obj,n.ahead,...){
         tmp <- myf
 
       }
+      tmp <- matrix(tmp,nrow = 1)
       vyf <- t(tmp %*% vb) + t(chol(mOmsq)) %*% rnorm(nk)
 
       # Geet new variables
