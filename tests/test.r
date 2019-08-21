@@ -12,3 +12,7 @@ ltfit2 <- ltvar(y=jpdata,p=2)
 ltirf1 <- impulse_response(ltfit1,n.ahead = 12)
 ltirf2 <- impulse_response(ltfit2,n.ahead = 12)
 
+# Test forecasting
+
+ltfc1 <- forecast(ltfit1,n.ahead = 6)
+ltfc2 <- forecast(ltfit2,n.ahead = 6)

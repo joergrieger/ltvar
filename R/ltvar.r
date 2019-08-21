@@ -87,11 +87,26 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
 
   # Declare Variables for Storage
 
-  mbSave  <- array(0, dim=c( nreps - burnin, ns, nb))
-  maSave  <- array(0, dim=c( nreps - burnin, ns, na))
-  mhSave  <- array(0, dim=c( nreps - burnin, ns, nk))
-  vdbSave <- array(0, dim=c( nreps - burnin, nb, 1))
-  vdaSAve <- array(0, dim=c( nreps - burnin, na, 1))
+  mbSave  <- array(0, dim=c( nreps - burnin, ns, nb ))
+  maSave  <- array(0, dim=c( nreps - burnin, ns, na ))
+  mhSave  <- array(0, dim=c( nreps - burnin, ns, nk ))
+
+  mPhiasave <- array(0, dim=c( nreps - burnin, na, na ))
+  mPhibsave <- array(0, dim=c( nreps - burnin, nb, nb ))
+  mPhihsave <- array(0, dim=c( nreps - burnin, nk, nk ))
+
+  vdbSave <- array(0, dim=c( nreps - burnin, nb, 1 ))
+  vdaSAve <- array(0, dim=c( nreps - burnin, na, 1 ))
+
+  vmuasave <- array(0, dim=c( nreps - burnin, na, 1 ))
+  vmubsave <- array(0, dim=c( nreps - burnin, nb, 1 ))
+
+  vgamsave <- array(0, dim=c( nreps - burnin, 1, nk ))
+
+  mSigasave <- array(0, dim = c( nreps - burnin, na, na ))
+  mSigbsave <- array(0, dim = c( nreps - burnin, nb, nb ))
+  mSighsave <- array(0, dim = c( nreps - burnin, nk, nk))
+
 
   # Start sampling
   for(ii in 1:nreps){
@@ -209,20 +224,38 @@ ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
     # Store Variables
 
     if( ii > burnin){
+      vmubsave[ii - burnin,,] <- vmub
+      vmuasave[ii - burnin,,] <- vmua
 
-      mbSave[ii-burnin,,] <- mb
-      maSave[ii-burnin,,] <- ma
-      mhSave[ii-burnin,,] <- mh
+      mPhiasave[ii - burnin,,] <- mPhia
+      mPhibsave[ii - burnin,,] <- mPhib
+      mPhihsave[ii - burnin,,] <- mPhih
+
+      mSigasave[ii - burnin,,] <- mSiga
+      mSigbsave[ii - burnin,,] <- mSigb
+      mSighsave[ii - burnin,,] <- mSigh
+
+      mbSave[ii - burnin,,] <- mb
+      maSave[ii - burnin,,] <- ma
+      mhSave[ii - burnin,,] <- mh
+
+      vgamsave[ii - burnin,,] <- vgam
 
       vdbSave[ii - burnin,,] <- vdb
       vdaSAve[ii - burnin,,] <- vda
 
     }
   }
-  draws = list(mb = mbSave, ma = maSave, mh = mhSave,vdb=vdbSave,vda=vdaSAve)
+  draws = list(mb = mbSave, ma = maSave, mh = mhSave, vdb = vdbSave,vda = vdaSAve,
+               mPhia = mPhiasave, mPhib = mPhibsave, mPhih = mPhihsave,
+               vmua = vmuasave, vmub = vmubsave,
+               mSiga = mSigasave, mSigb = mSigbsave, mSigh = mSighsave,
+               vgam = vgamsave)
 
   model_info = list(p=p,intercept=Intercept)
+  data_info  = list(data = y)
   retlist <- structure(list(mcmc_draws=draws,
+                            data_info = data_info,
                             model_info=model_info),class="ltvar")
   return(retlist)
 
