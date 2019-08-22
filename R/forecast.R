@@ -86,8 +86,8 @@ forecast.ltvar <- function(obj,n.ahead,...){
       # Geet new variables
       if(p > 1){
 
-        myf[1:(p-1),] <- myf[2:p,]
-        myf[p,] <- vyf
+        myf[2:p,] <- myf[1:(p-1),]
+        myf[1,] <- vyf
 
       }
       else{
