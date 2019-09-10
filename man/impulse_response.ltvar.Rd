@@ -2,9 +2,7 @@
 % Please edit documentation in R/irf.r
 \name{impulse_response.ltvar}
 \alias{impulse_response.ltvar}
-\title{Impulse-responses for latent threshold VARs.
-
-This function computes impulse-response functions for latent-threshold VARS. The user supplies an estimated latent-threshold model and the number of steps for the IRFs. The function returns an object of the class ltirf with the computed mean and the 5% and 95% quantil for the IRFs.}
+\title{Impulse-responses for latent threshold VARs.}
 \usage{
 \method{impulse_response}{ltvar}(obj, n.ahead)
 }
@@ -14,7 +12,5 @@ This function computes impulse-response functions for latent-threshold VARS. The
 \item{n.ahead}{Integer specifying the steps}
 }
 \description{
-Impulse-responses for latent threshold VARs.
-
 This function computes impulse-response functions for latent-threshold VARS. The user supplies an estimated latent-threshold model and the number of steps for the IRFs. The function returns an object of the class ltirf with the computed mean and the 5% and 95% quantil for the IRFs.
 }

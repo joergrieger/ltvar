@@ -2,6 +2,7 @@
 
 S3method(forecast,ltvar)
 S3method(impulse_response,ltvar)
+export()
 export(fSampLT)
 export(forecast)
 export(impulse_response)
