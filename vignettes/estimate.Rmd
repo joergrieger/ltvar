@@ -1,15 +1,19 @@
 ---
-title: "Estimating an LTVAR model"
-author: "Jörg Rieger"
-date: "8 9 2019"
-output: html_document
+title: "Estimate a latent-threshold VAR model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{estimate}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-# Introduction
 
-The Latent-Threshold VAR (or LTVAR) is a generalization of the Time-Varying Parameter VAR where some of estimated coefficients are shrunk to 0. In particular, the LTVAT-model can be represented as follows:
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
-\[
-y_t=b_tx_t+\epsilon_t
-\]
-
-with $b_t = \beta_t \dot$
+```{r setup}
+library(ltvar)
+```

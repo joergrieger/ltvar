@@ -15,3 +15,7 @@ LinkingTo: Rcpp, RcppArmadillo
 URL: https://github.com/joergrieger/ltvar
 BugReports: https://github.com/joergrieger/ltvar/issues
 RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
