@@ -1,5 +1,8 @@
-#' @export
-#' @title mcmc computation of latent-threshold models
+
+#' MCMC computation of latent-threshold models.
+#'
+#' Estimate a latent-threshold VAR model using a single-move Gibbs sampler as in Nakajima and West (2013)
+#'
 #' @param y A TxK matrix with the data
 #' @param p number of lags
 #' @param Intercept Logical flag whether the model contains an intercept
@@ -14,7 +17,9 @@
 #' @param db0 prior on phi for betas
 #' @param dg0,dG0 prior on parameters for stochastic volatility
 #' @param dk0 latent threshold prior
-
+#' @references Nakajima, J. and M. West (2013) Bayesian Analysis of Latent Threshold Dynamic Models; Journal of Business & Economic Statistics 31 (2), 151-164
+#' @export
+#' @importFrom MASS ginv
 ltvar <- function(y,p=2, Intercept=TRUE,nreps=100,burnin=10,
                   # Priors
                   dvb0 = 20, dVb0 = 0.002, dva0 = 2, dVa0 = 0.002, dvh0 = 2, dVh0 = 0.002,

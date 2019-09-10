@@ -11,6 +11,7 @@ forecast <- function(obj,n.ahead,...) UseMethod("forecast")
 #' @param obj a fitted ltvar model
 #' @param n.ahead forecast horizon
 #' @param ... currently not used
+#' @importFrom stats rnorm
 
 forecast.ltvar <- function(obj,n.ahead,...){
 
@@ -58,11 +59,11 @@ forecast.ltvar <- function(obj,n.ahead,...){
 
       # Calculate time-varying parameters
 
-      vbf  <- vmub + mPhib %*% (vbf - vmub) + t(chol(mSigb)) %*% rnorm(nb)
+      vbf  <- vmub + mPhib %*% (vbf - vmub) + t(chol(mSigb)) %*% stats::rnorm(nb)
       vbfd <- vbf
       vbfd[abs(vbf) < vdb] <- 0
 
-      vaf  <- vmua + mPhia %*% (vaf - vmua) + t(chol(mSiga)) %*% rnorm(na)
+      vaf  <- vmua + mPhia %*% (vaf - vmua) + t(chol(mSiga)) %*% stats::rnorm(na)
       vafd <- vaf
       vafd[abs(vaf) < vda] <- 0
       vhf  <- mPhih %*% vhf + t(chol(mSigh)) %*% rnorm(nk)

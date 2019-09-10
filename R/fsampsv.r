@@ -20,7 +20,6 @@
 ##      vhs:  sampled stochastic volatility (ns*1 vector)
 ##
 
-#' @export
 #' @title implements multi-move sampler for SV model
 #' @param vy response (ns*1 vector)
 #' @param vh current point of h (ns*1 vector)
@@ -28,6 +27,7 @@
 #' @param dphi AR(1) coefficient for transition of volatility
 #' @param dsig2,dsig02 parameters (scalar)
 #' @param dh00 mean of cofficients
+#' @importFrom stats runif
 
 fSVSamp <- function(vy, vh, dphi, dsig2, dh00, dsig02, nK=NULL){
 
@@ -46,7 +46,7 @@ fSVSamp <- function(vy, vh, dphi, dsig2, dh00, dsig02, nK=NULL){
 
   while (sum(diff(vk)<2) > 0){
 
-    vk <- c(1,floor(ns * (c(1:nK) + runif(nK)) / (nK+2)),ns+1)# stochastic knots
+    vk <- c(1,floor(ns * (c(1:nK) + stats::runif(nK)) / (nK+2)),ns+1)# stochastic knots
 
   }
 
@@ -166,7 +166,7 @@ fSVSamp <- function(vy, vh, dphi, dsig2, dh00, dsig02, nK=NULL){
             t <- id# simulation smoother
             while (t >=  1){
               dC <- dH2 * (1 - dU * dH2)
-              deps <- sqrt(dC) * rnorm(1)
+              deps <- sqrt(dC) * stats::rnorm(1)
               vu[t] <- dH2 * dr + deps
               dV <- dH2 * dU * vL[t]
 

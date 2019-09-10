@@ -4,7 +4,7 @@
 # Function to create lagged data
 #
 #
-
+#' @importFrom stats embed
 lagdata <-function(y,lags,intercept=FALSE){
 
   T<-nrow(y)
@@ -12,7 +12,7 @@ lagdata <-function(y,lags,intercept=FALSE){
 
   obs <- T-lags
 
-  x  <- embed(y,dimension=lags+1)[,-(1:K)]
+  x  <- stats::embed(y,dimension=lags+1)[,-(1:K)]
 
   if(intercept==TRUE){
 

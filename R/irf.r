@@ -5,10 +5,13 @@
 impulse_response <- function(obj,n.ahead) UseMethod("impulse_response")
 
 #' @export
-#' @title impulse-responses for latent threshold VARs
+#' @title Impulse-responses for latent threshold VARs.
+#'
+#' This function computes impulse-response functions for latent-threshold VARS. The user supplies an estimated latent-threshold model and the number of steps for the IRFs. The function returns an object of the class ltirf with the computed mean and the 5% and 95% quantil for the IRFs.
+#'
 #' @param obj A fitted ltvar model
 #' @param n.ahead Integer specifying the steps
-
+#' @importFrom stats quantile
 impulse_response.ltvar <- function(obj,n.ahead){
 
   dims  <- dim(obj$mcmc_draws$mb)
@@ -60,8 +63,8 @@ impulse_response.ltvar <- function(obj,n.ahead){
         for(mm in 1:n.ahead){
 
           irf_storage[kk,ll,mm,ii,1] <- mean(tmp_irf[kk,ll,mm,])
-          irf_storage[kk,ll,mm,ii,2] <- quantile(tmp_irf[kk,ll,mm,],probs=c(0.05))
-          irf_storage[kk,ll,mm,ii,3] <- quantile(tmp_irf[kk,ll,mm,],probs=c(0.95))
+          irf_storage[kk,ll,mm,ii,2] <- stats::quantile(tmp_irf[kk,ll,mm,],probs=c(0.05))
+          irf_storage[kk,ll,mm,ii,3] <- stats::quantile(tmp_irf[kk,ll,mm,],probs=c(0.95))
 
         }
       }

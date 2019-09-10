@@ -2,7 +2,7 @@
 % Please edit documentation in R/ltvar.r
 \name{ltvar}
 \alias{ltvar}
-\title{mcmc computation of latent-threshold models}
+\title{MCMC computation of latent-threshold models.}
 \usage{
 ltvar(y, p = 2, Intercept = TRUE, nreps = 100, burnin = 10,
   dvb0 = 20, dVb0 = 0.002, dva0 = 2, dVa0 = 0.002, dvh0 = 2,
@@ -39,5 +39,8 @@ ltvar(y, p = 2, Intercept = TRUE, nreps = 100, burnin = 10,
 \item{nKnots}{number of blocks in the stochastic volatility sampler}
 }
 \description{
-mcmc computation of latent-threshold models
+Estimate a latent-threshold VAR model using a single-move Gibbs sampler as in Nakajima and West (2013)
+}
+\references{
+Nakajima, J. and M. West (2013) Bayesian Analysis of Latent Threshold Dynamic Models; Journal of Business & Economic Statistics 31 (2), 151-164
 }

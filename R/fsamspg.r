@@ -1,4 +1,3 @@
-#' @export
 #' @title samples sigma, phi and gamma for stochastic volatility sampler
 #' @param my current draw of stochastic volatility
 #' @param mh previous draw of stochastic volatility
@@ -8,7 +7,8 @@
 #' @param dg0,dG0 prior parameters on gamma, inverse gamma distribution
 #' @param da0,db0 prior parameters on phi, shape parameters for beta distribution
 #' @param dnu,dV0 prior parameters on sigma, inverse gamma distribution
-
+#' @importFrom stats rgamma
+#' @importFrom stats dbeta
 fSampSPG <- function(my,mh,mPhi,vgam,dnu,dV0,da0,db0,dg0,dG0){
 
   # Preliminaries
@@ -33,7 +33,7 @@ fSampSPG <- function(my,mh,mPhi,vgam,dnu,dV0,da0,db0,dg0,dG0){
 
   for(jj in 1:nk){
 
-    mSign[jj,jj] <- 1/rgamma(1,dnu/2,vV[jj]/2)
+    mSign[jj,jj] <- 1/stats::rgamma(1,dnu/2,vV[jj]/2)
 
   }
 
@@ -50,7 +50,7 @@ fSampSPG <- function(my,mh,mPhi,vgam,dnu,dV0,da0,db0,dg0,dG0){
 
   for(jj in 1:nk){
 
-    vgamn[jj] <- 1/rgamma(1,(dg0+ns),vG[jj]/2)
+    vgamn[jj] <- 1/stats::rgamma(1,(dg0+ns),vG[jj]/2)
 
   }
 
@@ -69,7 +69,7 @@ fSampSPG <- function(my,mh,mPhi,vgam,dnu,dV0,da0,db0,dg0,dG0){
     docounter <- 0
     repeat{
 
-      dphin <- vphii[jj] + rnorm(1) * sqrt(vsigi[jj])
+      dphin <- vphii[jj] + stats::rnorm(1) * sqrt(vsigi[jj])
 
       docounter <- docounter + 1
       if( docounter > 100 ){ break }
@@ -80,7 +80,7 @@ fSampSPG <- function(my,mh,mPhi,vgam,dnu,dV0,da0,db0,dg0,dG0){
     if( (docounter < 100) & (dphin < 1) ){
 
       dphio <- mPhi[jj,jj]
-      dfrac <- ( dbeta((dphin+1)/2,da0,db0) / dbeta((dphio+1)/2,da0,db0) ) * ( sqrt( 1 - dphin^2 ) / sqrt( 1 - dphio^2 ) )
+      dfrac <- ( stats::dbeta((dphin+1)/2,da0,db0) / stats::dbeta((dphio+1)/2,da0,db0) ) * ( sqrt( 1 - dphin^2 ) / sqrt( 1 - dphio^2 ) )
       if(is.na(dfrac)){ dfrac <- 0 }
 
       if( runif(1) < dfrac ){

@@ -13,13 +13,8 @@ reference:
   desc: Main functions of the LTVAR-package
   contents:
     - ltvar
-    - impulse_response
     - impulse_response.ltvar
+    - forecast.ltvar
 
-- title: Sampler
-  desc: Functions to sample parameters
-  contents:
-    - fSampSPG
-    - fSVSamp
-    - fSampLT
+
 
